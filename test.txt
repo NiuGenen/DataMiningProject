@@ -1,0 +1,4 @@
+english,number
+qwe,1
+asd,0
+zxc,1
