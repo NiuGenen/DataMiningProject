@@ -1,25 +1,27 @@
 import pandas as pd
 import preprocessing
+import os
 
-dir_data="E:\\tj"
+#dir_data="E:\\tj"
+dir_data="./data/"
 datafileset1 = (
-    dir_data + "\\0707_seg_1.txt",
-    dir_data + "\\0707_seg_2.txt",
-    dir_data + "\\0707_seg_3.txt",
-    dir_data + "\\0707_seg_4.txt",
-    dir_data + "\\0720_seg_1.txt",
-    dir_data + "\\0720_seg_2.txt",
-    dir_data + "\\0720_seg_3.txt",
-    dir_data + "\\0720_seg_4.txt",
-    dir_data + "\\0721_seg_1.txt",
-    dir_data + "\\0721_seg_2.txt",
-    dir_data + "\\0721_seg_3.txt",
-    dir_data + "\\0721_seg_4.txt")
+    dir_data + "/0707_seg_1.txt",
+    dir_data + "/0707_seg_2.txt",
+    dir_data + "/0707_seg_3.txt",
+    dir_data + "/0707_seg_4.txt",
+    dir_data + "/0720_seg_1.txt",
+    dir_data + "/0720_seg_2.txt",
+    dir_data + "0720_seg_3.txt",
+    dir_data + "/0720_seg_4.txt",
+    dir_data + "/0721_seg_1.txt",
+    dir_data + "/0721_seg_2.txt",
+    dir_data + "/0721_seg_3.txt",
+    dir_data + "/0721_seg_4.txt")
 datafileset2 = (
-    dir_data + "\\0715_seg_1_sort.txt",
-    dir_data + "\\0715_seg_2_sort.txt",
-    dir_data + "\\0715_seg_3_sort.txt",
-    dir_data + "\\0715_seg_4_sort.txt")
+    dir_data + "/0715_seg_1_sort.txt",
+    dir_data + "/0715_seg_2_sort.txt",
+    dir_data + "/0715_seg_3_sort.txt",
+    dir_data + "/0715_seg_4_sort.txt")
 
 file_count=dict()
 sc=dict()
@@ -32,14 +34,8 @@ col_7_cnt = dict() # [7] volumn
 col_8_cnt = dict() # [8] speed
 col_9_cnt = dict() # [9] occupancy
 file_data=dict()
-# key : file_name
+# key   : file_name
 # value : dict() by linkid
-#         key = linkid
-#         value = [
-#                     [[6] [7] [8] [9] [10]],
-#                     [[6] [7] [8] [9] [10]],
-#                     ......
-#                 ]
 for file in datafileset1:
     data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
     preprocessing.process_unknown_count( data_csv, file ,file_count, 1)
@@ -57,15 +53,46 @@ print("=========================")
 preprocessing.process_file_count(file_count, 1)
 print("=========================")
 
-a=dict()
+# file_data = dict()
+# key   : file_name
+# value : dict() by linkid
+#         key = linkid
+#         value = [ [[6] [7] [8] [9] [10]],
+#                     ...... ]
 file_10_data = file_data[ datafileset1[0]]
-for key in file_10_data.keys():
-    res=[]
-    preprocessing.transfor_format( file_10_data[key], [6,7,8,9], 6, [10], 6, res)
+for linkid in file_10_data.keys():
+    res = []
+    preprocessing.transfor_format( file_10_data[linkid], [6,7,8,9], 6, [10], 6, res)
+    linkid_value=[]
     for item in res:
-        print("Data = " + item[0].__str__() )
-        print("Target = " + item[1].__str__() )
-    print("0000000000000000000000000000000000000000000000000000000000000000000000")
+        value = []
+        col_nr = 1
+        value.append( linkid )
+        for item0 in item[0]: # item[0] is a list contains input data
+            value.append(item0)
+            col_nr += 1
+        for item1 in item[1]: # item[1] is a list contains output data
+            value.append(item1)
+            col_nr += 1
+        linkid_value.append( value ) # construct one data for this linkid, append!
+    # write into csv file
+    col_i = 0
+    col=[]
+    for item in linkid_value:
+        col.append( item[col_i] )
+    a = pd.Series(col, name=str(col_i))
+    linkid_csv = a
+    col_i += 1
+    while col_i < col_nr:
+        col=[]
+        for item in linkid_value:
+            col.append( item[col_i] )
+        a = pd.Series(col, name=str(col_i))
+        linkid_csv = pd.concat([linkid_csv,a], axis=1)
+        col_i += 1
+    if not os.path.exists('./file_10_data'):
+        os.mkdir('./file_10_data')
+    linkid_csv.to_csv('./file_10_data/' + linkid + '.csv', index=False, sep=',')
 print("=========================")
 
 sc_pr_cnt  = dict()
