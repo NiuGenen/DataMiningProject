@@ -22,15 +22,23 @@ datafileset2 = (
     dir_data + "/0715_seg_2_sort.txt",
     dir_data + "/0715_seg_3_sort.txt",
     dir_data + "/0715_seg_4_sort.txt")
+datafileset3 = (
+    dir_data + "/0722_seg_1.txt",
+    dir_data + "/0722_seg_2.txt",
+    dir_data + "/0722_seg_3.txt",
+    dir_data + "/0722_seg_4.txt")
 
 file_data=dict()
 # key   : file_name
 # value : dict() by linkid
-for file in datafileset1:
+#for file in datafileset1:
+#    data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
+#    preprocessing.process_file_data(data_csv,file_data,file,4,0)
+#for file in datafileset2:
+#    data_csv = pd.read_csv( file, header=None, sep="\t")
+#    preprocessing.process_file_data(data_csv,file_data,file,4,0)
+for file in datafileset3:
     data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
-    preprocessing.process_file_data(data_csv,file_data,file,4,0)
-for file in datafileset2:
-    data_csv = pd.read_csv( file, header=None, sep="\t")
     preprocessing.process_file_data(data_csv,file_data,file,4,0)
 print("=========================")
 
@@ -41,9 +49,11 @@ print("=========================")
 #         value = [ [[6] [7] [8] [9] [10]],
 #                     ...... ]
 all_data_file_name = []
-for file in datafileset1:
-    all_data_file_name.append( file )
-for file in datafileset2:
+#for file in datafileset1:
+#    all_data_file_name.append( file )
+#for file in datafileset2:
+#    all_data_file_name.append( file )
+for file in datafileset3:
     all_data_file_name.append( file )
 # process all data file
 for filename in all_data_file_name:
