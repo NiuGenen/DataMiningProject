@@ -39,3 +39,6 @@ for file in datafileset2:
 test_data = []
 for file in datafileset3:
     test_data.append( file[0:file.__len__()-4] + "_csv")
+# all formated training data csv
+all_train_data_file = dir_data + "/all_train_data.csv"
+all_train_targ_file = dir_data + "/all_train_targ.csv"

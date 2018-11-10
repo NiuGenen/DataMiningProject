@@ -1,3 +1,16 @@
+
+def cvt_targ( targ ):
+    if targ == "UNKNOWN_CONGESTION_LEVEL":
+        return -1.0
+    if targ == "NON_CONGESTION":
+        return 0.0
+    if targ == "LIGHT_CONGESTION":
+        return 1.0
+    if targ == "MEDIUM_CONGESTION":
+        return 2.0
+    if targ == "HEAVY_CONGESTION":
+        return 3.0
+
 def process_file_data(csv, file_data, filename, key_col, verbose):
     file_value = dict()
     if file_data.__contains__(filename):
@@ -6,10 +19,12 @@ def process_file_data(csv, file_data, filename, key_col, verbose):
         key = item[ key_col ]
         if file_value.__contains__(key):
             vs = file_value[key]
+            item[10] = cvt_targ( item[10] )
             vs.append(item)
             file_value[key] = vs
         else:
             vs = [[]]
+            item[10] = cvt_targ( item[10] )
             vs[0] = item
             file_value[key] = vs
     file_data[ filename ] = file_value
