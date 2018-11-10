@@ -35,6 +35,9 @@ sc_rng_cnt = dict()
 sd.process_sc(sc, 1, sc_pr_cnt, sc_rng_cnt)
 
 print("=========================")
+print(sc.keys())
+
+print("=========================")
 # [6] travel time
 all_nr = 24 * 12 * 4 * 855
 col_6_pr = dict()

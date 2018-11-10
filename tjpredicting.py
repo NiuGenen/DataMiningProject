@@ -19,7 +19,8 @@ def get_floder_csv_file(dir, prex):
     return csvs
 
 
-clffile = os.path.join( tjf.dir_data, "decision_tree.module")
+#clffile = os.path.join( tjf.dir_data, "decision_tree.module")
+clffile = os.path.join( tjf.dir_data, "decision_tree_without_unknown.module")
 fd = open( clffile, "rb")
 clf = pickle.load( fd )
 fd.close()
