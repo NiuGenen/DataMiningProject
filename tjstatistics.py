@@ -1,27 +1,6 @@
 import statistics_data as sd
 import pandas as pd
-
-#dir_data="E:\\tj"
-dir_data="./data"
-datafileset1 = (
-    dir_data + "/0707_seg_1.txt",
-    dir_data + "/0707_seg_2.txt",
-    dir_data + "/0707_seg_3.txt",
-    dir_data + "/0707_seg_4.txt",
-    dir_data + "/0720_seg_1.txt",
-    dir_data + "/0720_seg_2.txt",
-    dir_data + "/0720_seg_3.txt",
-    dir_data + "/0720_seg_4.txt",
-    dir_data + "/0721_seg_1.txt",
-    dir_data + "/0721_seg_2.txt",
-    dir_data + "/0721_seg_3.txt",
-    dir_data + "/0721_seg_4.txt")
-datafileset2 = (
-    dir_data + "/0715_seg_1_sort.txt",
-    dir_data + "/0715_seg_2_sort.txt",
-    dir_data + "/0715_seg_3_sort.txt",
-    dir_data + "/0715_seg_4_sort.txt")
-
+import tjfilepath as tjf
 
 file_count=dict()
 sc=dict()
@@ -36,12 +15,12 @@ col_9_cnt = dict() # [9] occupancy
 file_data=dict()
 # key   : file_name
 # value : dict() by linkid
-for file in datafileset1:
+for file in tjf.datafileset1:
     data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
     sd.unknown_count( data_csv, file ,file_count, 1)
     sd.process_unknown_sc( data_csv , sc)
     sd.process_column_count(col_6_cnt,col_7_cnt,col_8_cnt,col_9_cnt,data_csv)
-for file in datafileset2:
+for file in tjf.datafileset2:
     data_csv = pd.read_csv( file, header=None, sep="\t")
     sd.unknown_count( data_csv, file ,file_count, 1)
     sd.process_unknown_sc( data_csv , sc)
