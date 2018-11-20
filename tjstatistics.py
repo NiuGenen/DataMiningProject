@@ -1,6 +1,8 @@
 import statistics_data as sd
 import pandas as pd
 import tjfilepath as tjf
+import tjcsv
+import os
 
 file_count=dict()
 sc=dict()
@@ -33,6 +35,7 @@ print("=========================")
 sc_pr_cnt  = dict()
 sc_rng_cnt = dict()
 sd.process_sc(sc, 1, sc_pr_cnt, sc_rng_cnt)
+tjcsv.store_dict_into_csv(sc, os.path.join(tjf.dir_data,"linkid-unknown-percentage.csv"))
 
 print("=========================")
 print(sc.keys())

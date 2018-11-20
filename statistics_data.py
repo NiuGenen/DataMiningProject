@@ -28,12 +28,15 @@ def process_unknown_sc(datacsv, sc):
     line_nr=data_size[0]
     l = 0
     while l < line_nr:
+        linkid = data_value[l][4]
         if data_value[l][10]=="UNKNOWN_CONGESTION_LEVEL":
-            linkid = data_value[l][4]
             if sc.__contains__(linkid):
                 sc[linkid] = sc[linkid] + 1
             else:
                 sc[linkid] = 1
+        else:
+            if not sc.__contains__(linkid):
+                sc[linkid] = 0
         l += 1
 
 def process_file_count(file_count, verbose):
@@ -69,6 +72,7 @@ def process_sc(sc, verbose, sc_pr_cnt, sc_rng_cnt):
         # transform into percentage
         # sc[k] = v / (72 * 4 * 4)
         v = v / ( 72 * 4 * 4 )
+        sc[k] = v
         # count the number of a specific percentage
         if sc_pr_cnt.__contains__(v):
             sc_pr_cnt[v] += 1
