@@ -43,7 +43,7 @@ print("=========================")
 sc_pr_cnt  = dict()
 sc_rng_cnt = dict()
 sf.unknown_count_percentage(uc, 1, sc_pr_cnt, sc_rng_cnt)
-dmcsv.store_dict_into_csv(uc, os.path.join(sd.source_data_dir, "std-linkid-unknown-percentage.csv"))
+dmcsv.store_dict_into_csv(uc, os.path.join(sd.source_data_dir, "sta-linkid-unknown-percentage.csv"))
 
 print("=========================")
 # [6] travel time
