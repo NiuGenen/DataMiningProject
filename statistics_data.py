@@ -47,34 +47,70 @@ def process_file_count(file_count, verbose):
     if verbose is 1:
         print("Avgerage Unknown Percentage = " + str(avg_p) + "%" )
 
+# input dict() sc
+# key : linkid
+# value : the number of unknown items of this linkid
+#
 # Return dict() sc_cnt and dict() sc_per
 # sc_cnt key   :  unknown percentage
 # sc_cnt value : the number of linkid whose unknown percentage is the key
 # sc_per key   : unknown percentage range of one linkid
 # sc_per value : the number of linkid whose unknown percentage is in that range
 def process_sc(sc, verbose, sc_pr_cnt, sc_rng_cnt):
+    # record the linkid
+    sc_pr_linked = dict()
+    sc_rng_linkid = dict()
+    # number to percentage
+    #
+    # k : linkid
+    # v : number of unknown data
+    #
     for (k,v) in sc.items():
-        sc[k] = v / (72 * 4 * 4)
-    sortsc=sorted(sc.values())
-    for i in sortsc:
-        if sc_pr_cnt.__contains__(i):
-            sc_pr_cnt[i] += 1
+        # transform into percentage
+        # sc[k] = v / (72 * 4 * 4)
+        v = v / ( 72 * 4 * 4 )
+        # count the number of a specific percentage
+        if sc_pr_cnt.__contains__(v):
+            sc_pr_cnt[v] += 1
         else:
-            sc_pr_cnt[i] = 1
+            sc_pr_cnt[v] = 1
+        # store its linkid
+        if sc_pr_linked.__contains__(v):
+            sc_pr_linked[v].append(k)
+        else:
+            sc_pr_linked[v]=[]
+            sc_pr_linked[v].append(k)
+    # sort percentage
+    sortsc=sorted(sc.values())
+    # count the percentage range
     per=[10,20,30,40,50,60,70,80,90,100]
     for p in per:
+        # k : percentage
+        # v : the number of this percentage
         for (k,v) in sc_pr_cnt.items():
             if k <= p/100 and k > p/100 - 0.1:
+                # count the range
                 if sc_rng_cnt.__contains__(p):
                     sc_rng_cnt[p] += v
                 else:
                     sc_rng_cnt[p] = v
+                # store its linkid
+                if sc_rng_linkid.__contains__(p):
+                    for linkid in sc_pr_linked[k]:
+                        sc_rng_linkid[p].append(linkid)
+                else:
+                    sc_rng_linkid[p]=[]
+                    for linkid in sc_pr_linked[k]:
+                        sc_rng_linkid[p].append(linkid)
     if verbose is 1:
         print("Unknown Total nr      : " + str(sortsc.__len__()))
         print("Unknown Less Than 10% : " + str(sc_rng_cnt[10])  )
         print("Unknown More Than 90% : " + str(sc_rng_cnt[100])  )
         for (k,v) in sc_rng_cnt.items():
             print("Unknown Percentage = " + str(k-10) + "% - " + str(k) +"% ; Count = " + str(v) )
+            for linkid in sc_rng_linkid[k]:
+                print(linkid)
+            print("----------------------------")
 
 def add_into_dict(_dict, _k, _v, op, init_value):
     if op is "+":
