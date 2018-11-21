@@ -19,19 +19,23 @@
     
 ### step two
 
-- Convert 'direction' 'linkid' into integer
-- And store the mapping
+- Convert 'direction' 'linkid' into integer and store the mapping
+- Format 'day' and 'time' into integer
+- Format 'time' into every 5 minutes
 
 ### step three
 
-- Remove all the data of some linkid, which contains too much unknown
-- Fill the remaining unknown data
-    - Using the data from the other time at the same day
-    - Using the data from the same time at the other day
-    - Average
+- clean the training data
+    - Remove all the data of some linkid, which contains too much unknown
+    - Fill the remaining unknown data
+        - Using the data from the other time at the same day
+        - Using the data from the same time at the other day
+        - Average
+- Split train and test data by linkid
 
 ### step four
 
+- Combine clean data into one csv
 - Convert into training format
 
 ---

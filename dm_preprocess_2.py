@@ -31,26 +31,21 @@ testcsv = pd.read_csv( dmfp.pp1_test_data_path, sep=',')
 print("Taging direction...")
 direction_value = []
 direction_tag = []
-i = ppf.pp2_taging( traincsv, train_col_name[ direction_col ], direction_value, direction_tag)
+direction_type_nr = ppf.pp2_taging(traincsv, train_col_name[ direction_col], direction_value, direction_tag)
 
 print("Taging linkid...")
 linkid_value = []
 linkid_tag = []
-j = 0
-for l in traincsv['linkid']:
-    if not linkid_value.__contains__(l):
-        linkid_value.append(l)
-        linkid_tag.append(j)
-        j += 1
+linkid_type_nr = ppf.pp2_taging(traincsv, train_col_name[ linkid_col], linkid_value, linkid_tag)
 
-print("Total Type of Direction = " + str(i))
-print("Total Type of LinkId    = " + str(j))
+print("Total Type of Direction = " + str(direction_type_nr))
+print("Total Type of LinkId    = " + str(linkid_type_nr))
 
 if not os.path.exists( dmfp.pp2_direction_map_path):
     print("Generating " + dmfp.pp2_direction_map_path)
     direction_map = []
     k = 0
-    while k < i:
+    while k < direction_type_nr:
         direction_map.append( [direction_value[k], direction_tag[k]] )
         k += 1
     dmcsv.write_list2_into_csv(direction_map, ['direction', 'tag'], dmfp.pp2_direction_map_path, 1)
@@ -59,20 +54,20 @@ if not os.path.exists( dmfp.pp2_linkid_map_path):
     print("Generating " + dmfp.pp2_linkid_map_path)
     linkid_map = []
     k = 0
-    while k < j:
+    while k < linkid_type_nr:
         linkid_map.append( [linkid_value[k], linkid_tag[k]] )
         k += 1
     dmcsv.write_list2_into_csv(linkid_map, ['linkid','tag'], dmfp.pp2_linkid_map_path, 1)
 
 direction_dict = dict()
 k = 0
-while k < i:
+while k < direction_type_nr:
     direction_dict[ direction_value[k] ] = direction_tag[k]
     k += 1
 
 linkid_dict = dict()
 k = 0
-while k < j:
+while k < linkid_type_nr:
     linkid_dict[ linkid_value[k] ] = linkid_tag[k]
     k += 1
 
