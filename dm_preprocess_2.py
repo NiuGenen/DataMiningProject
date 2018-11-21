@@ -4,16 +4,10 @@ import dm_preprocess_fun as ppf
 import dm_csv as dmcsv
 import os
 import dm_filepath as dmfp
+import dm_common as dmc
 
-if not os.path.exists( dmfp.pp1_train_data_path ):
-    print("Not Found File : " + dmfp.pp1_train_data_path )
-    while 1:
-        continue
-
-if not os.path.exists( dmfp.pp1_test_data_path ):
-    print("Not Found File : " + dmfp.pp1_test_data_path )
-    while 1:
-        continue
+dmc.check_file_and_pause( dmfp.pp1_train_data_path )
+dmc.check_file_and_pause( dmfp.pp1_test_data_path )
 
 train_col_name=[
     'data',             # 0

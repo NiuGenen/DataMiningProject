@@ -1,3 +1,5 @@
+import os
+
 def print_list(data, elem_line_nr):
     data = sorted(data)
     n = data.__len__()
@@ -19,3 +21,12 @@ def add_into_dict(_dict, _k, _v, op, init_value):
             _dict[_k] += _v
         else:
             _dict[_k] = init_value
+
+def check_file_and_pause(file):
+    if not os.path.exists( file ):
+        pause_msg("Not Found : " + file)
+
+def pause_msg( msg ):
+    print(msg)
+    while 1:
+        continue

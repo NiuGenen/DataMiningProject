@@ -3,6 +3,7 @@ import pandas as pd
 import dm_source_data as sd
 import dm_csv as dmcsv
 import os
+import dm_filepath as dmfp
 
 # column value
 # [0] data  [1] time  [2] direction [3] road type [4] linkid [5] length
@@ -43,7 +44,7 @@ print("=========================")
 sc_pr_cnt  = dict()
 sc_rng_cnt = dict()
 sf.unknown_count_percentage(uc, 1, sc_pr_cnt, sc_rng_cnt)
-dmcsv.store_dict_into_csv(uc, os.path.join(sd.source_data_dir, "sta-linkid-unknown-percentage.csv"))
+dmcsv.store_dict_into_csv(uc, dmfp.sta_unknown_percentage_path)
 
 print("=========================")
 # [6] travel time

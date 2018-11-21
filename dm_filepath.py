@@ -15,3 +15,6 @@ pp2_train_data_name = "pp2_train_data_new.csv"
 pp2_test_data_name = "pp2_test_data_new.csv"
 pp2_train_data_path = os.path.join(sd.source_data_dir, pp2_train_data_name )
 pp2_test_data_path = os.path.join(sd.source_data_dir, pp2_test_data_name )
+
+sta_unknown_percentage_name = "sta-linkid-unknown-percentage.csv"
+sta_unknown_percentage_path = os.path.join(sd.source_data_dir, sta_unknown_percentage_name)
