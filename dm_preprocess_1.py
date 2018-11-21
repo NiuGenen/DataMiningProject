@@ -3,6 +3,7 @@ import pandas as pd
 import dm_preprocess_fun as ppf
 import dm_csv as dmcsv
 import os
+import dm_filepath as dmfp
 
 txt_col_name=[
     'data',             # 0
@@ -30,10 +31,7 @@ train_col_name=[
     'congestion_level'  # 8 - 10
 ]
 
-train_data_old_file = "pp1_train_data_old.csv"
-test_data_old_file = "pp1_test_data_old.csv"
-
-if not os.path.exists( os.path.join(sd.source_data_dir, train_data_old_file ) ):
+if not os.path.exists( dmfp.pp1_train_data_path ):
     train_data=[]
     verbose = 1
     for file in sd.train_0707:
@@ -48,12 +46,12 @@ if not os.path.exists( os.path.join(sd.source_data_dir, train_data_old_file ) ):
     for file in sd.train_0721:
         data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
         train_data = ppf.process_source_file(data_csv, train_data, file, [0,1,2,4,6,7,8,9], 10, verbose)
-    dmcsv.write_list2_into_csv(train_data, train_col_name, train_data_old_file, verbose)
+    dmcsv.write_list2_into_csv(train_data, train_col_name, dmfp.pp1_train_data_path, verbose)
 
-if not os.path.exists( os.path.join(sd.source_data_dir, test_data_old_file) ):
+if not os.path.exists( dmfp.pp1_test_data_path ):
     test_data=[]
     verbose = 1
     for file in sd.test_0722:
         data_csv = pd.read_csv( file, header=None , sep=',', usecols=[0,1,2,3,4,5,6,7,8,9,10])
         test_data = ppf.process_source_file(data_csv, test_data, file, [0,1,2,4,6,7,8,9], 10, verbose)
-    dmcsv.write_list2_into_csv(test_data, train_col_name, test_data_old_file, verbose)
+    dmcsv.write_list2_into_csv(test_data, train_col_name, dmfp.pp1_test_data_path, verbose)

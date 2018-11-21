@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import dm_source_data as sd
 
-def write_list2_into_csv(list2, colname, csvfilename, verbose):
+def write_list2_into_csv(list2, colname, filepath, verbose):
     # init
     cols = []
     col_nr = list2[0].__len__()
@@ -24,7 +24,6 @@ def write_list2_into_csv(list2, colname, csvfilename, verbose):
         data_csv = pd.concat([data_csv,a], axis=1)
         i += 1
     # write into csv
-    filepath = os.path.join( sd.source_data_dir, csvfilename )
     data_csv.to_csv( filepath, index=False, sep=',')
     if verbose >= 1:
         print("write csv : " + filepath)
