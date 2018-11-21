@@ -28,3 +28,12 @@ def process_source_file(csv, train_data, filename, data_cols, label_col, verbose
     if verbose >= 2:
         print( train_data )
     return train_data
+
+def pp2_taging(csv, colname, value, tag):
+    i = 0
+    for d in csv[ colname ]:
+        if not value.__contains__(d):
+            value.append(d)
+            tag.append(i)
+            i += 1
+    return i

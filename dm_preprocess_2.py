@@ -31,12 +31,7 @@ testcsv = pd.read_csv( dmfp.pp1_test_data_path, sep=',')
 print("Taging direction...")
 direction_value = []
 direction_tag = []
-i = 0
-for d in traincsv['direction']:
-    if not direction_value.__contains__(d):
-        direction_value.append(d)
-        direction_tag.append(i)
-        i += 1
+i = ppf.pp2_taging( traincsv, train_col_name[ direction_col ], direction_value, direction_tag)
 
 print("Taging linkid...")
 linkid_value = []
