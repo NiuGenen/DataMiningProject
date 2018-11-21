@@ -40,7 +40,7 @@ def write_list2_into_csv(list2, colname, filepath, verbose):
 
 # k : key
 # v : []
-def store_dict_list_into_csv(_d, vl, filename):
+def store_dict_list_into_csv(_d, vl, filepath):
     cols = [[]]
     i = 0
     while i <= vl:
@@ -58,9 +58,9 @@ def store_dict_list_into_csv(_d, vl, filename):
         a = pd.Series(cols[i], name=str(i))
         data_csv = pd.concat([data_csv,a], axis=1)
         i += 1
-    data_csv.to_csv(filename, index=False, sep=',')
+    data_csv.to_csv(filepath, index=False, sep=',')
 
-def store_dict_into_csv(_d, filename):
+def store_dict_into_csv(_d, filepath):
     cols = [[]]
     cols.append([])
     for (k,v) in _d.items():
@@ -69,4 +69,4 @@ def store_dict_into_csv(_d, filename):
     data_csv = pd.Series(cols[0], name=str(0)) # construct as pandas.Series
     a = pd.Series(cols[1], name=str(1))
     data_csv = pd.concat([data_csv,a], axis=1)
-    data_csv.to_csv(filename, index=False, sep=',')
+    data_csv.to_csv(filepath, index=False, sep=',')
