@@ -1,5 +1,5 @@
 def print_list(data, elem_line_nr):
-    data=[]
+    data = sorted(data)
     n = data.__len__()
     cnt = 0
     str = ""

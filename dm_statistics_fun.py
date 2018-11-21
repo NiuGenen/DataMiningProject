@@ -77,10 +77,10 @@ def unknown_count_percentage(uc_linkid, verbose, upc, uprc):
     # count the percentage range
     per=[10,20,30,40,50,60,70,80,90,100]
     for p in per:
-        # linkid : percentage
-        # count : the number of this percentage
-        for (linkid,count) in upc.items():
-            if linkid <= p/100 and linkid > p/100 - 0.1:
+        # key : percentage
+        # value : the number of this percentage
+        for (percentage,count) in upc.items():
+            if percentage <= p/100 and percentage > p/100 - 0.1:
                 # count the range
                 if uprc.__contains__(p):
                     uprc[p] += count
@@ -88,17 +88,17 @@ def unknown_count_percentage(uc_linkid, verbose, upc, uprc):
                     uprc[p] = count
                 # store its linkid
                 if uprc_s_linkid.__contains__(p):
-                    for linkid in upc_s_linkid[linkid]:
+                    for linkid in upc_s_linkid[percentage]:
                         uprc_s_linkid[p].append(linkid)
                 else:
                     uprc_s_linkid[p]=[]
-                    for linkid in upc_s_linkid[linkid]:
+                    for linkid in upc_s_linkid[percentage]:
                         uprc_s_linkid[p].append(linkid)
     if verbose >= 1:
-        print("Unknown Linkid Total nr      : " + str(uc_linkid.__len__()))
-        for (linkid,count) in uprc.items():
-            print("Unknown Percentage = " + str(linkid-10) + "% - " + str(linkid) +"% ; Count = " + str(count) )
-            dmcn.print_list( uprc_s_linkid[linkid] , 3)
+        print("Linkid Total nr      : " + str(uc_linkid.__len__()))
+        for (percentage_range,count) in uprc.items():
+            print("Unknown Percentage = " + str(percentage_range-10) + "% - " + str(percentage_range) +"% ; Count = " + str(count) )
+            dmcn.print_list( uprc_s_linkid[percentage_range], 3)
             print("----------------------------")
 
 #
