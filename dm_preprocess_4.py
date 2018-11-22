@@ -34,6 +34,9 @@ format_col_name  = ppf.pp4_format_col_name( train_col_name,format_data_cols, for
 if_format_train = 0
 if_format_test  = 0
 if_format_test_without_label = 0
+if_combine_train = 0
+if_combine_test  = 0
+if_combine_test_without_label  = 0
 
 verbose = 1
 
@@ -100,3 +103,57 @@ if if_format_test_without_label == 1:
         without_label_file_name = linkid + "_without_label.csv"
         without_label_file_path = os.path.join( dmfp.pp3_test_data_folder, without_label_file_name)
         dmcsv.write_list2_into_csv( csv.values, format_col_name,without_label_file_path ,verbose)
+
+if if_combine_train == 1:
+    print(" === combine format train data === ")
+    all_train_csv = None
+    flag_train = 0
+    for file in os.listdir( dmfp.pp3_train_data_folder ):
+        # read format train data
+        if not file.__contains__("format"):
+            continue
+        path = os.path.join( dmfp.pp3_train_data_folder, file)
+        csv = pd.read_csv( path, sep=',')
+        # combint into one csv
+        if flag_train == 0:
+            all_train_csv = csv
+            flag_train = 1
+        else:
+            all_train_csv = pd.concat([all_train_csv, csv], ignore_index=True)
+    # save all csv file
+    dmcsv.write_list2_into_csv( all_train_csv.values, format_col_name, dmfp.pp4_format_train_path, verbose)
+
+if if_combine_test == 1 or if_combine_test_without_label == 1:
+    print(" === combine format test data === ")
+    all_test_csv = None
+    all_test_without_label_csv = None
+    flag_test = 0
+    flag_test_without_label = 0
+    for file in os.listdir( dmfp.pp3_test_data_folder ):
+        # read format train data
+        if not file.__contains__("format"):
+            continue
+        path = os.path.join( dmfp.pp3_test_data_folder, file)
+        csv = pd.read_csv( path, sep=',')
+        # combint into one csv
+        if file.__contains__("without_label"):
+            if if_combine_test_without_label == 0:
+                continue
+            if flag_test_without_label == 0:
+                all_test_without_label_csv = csv
+                flag_test_without_label = 1
+            else:
+                all_test_without_label_csv = pd.concat([all_test_without_label_csv, csv], ignore_index=True)
+        else:
+            if if_combine_test == 0:
+                continue
+            if flag_test == 0:
+                all_test_csv = csv
+                flag_test = 1
+            else:
+                all_test_csv = pd.concat([all_test_csv, csv], ignore_index=True)
+    # save all csv file
+    if if_combine_test == 1:
+        dmcsv.write_list2_into_csv( all_test_csv.values, format_col_name, dmfp.pp4_format_test_path, verbose)
+    if if_combine_test_without_label == 1:
+        dmcsv.write_list2_into_csv( all_test_without_label_csv.values, format_col_name, dmfp.pp4_format_test_without_label_path, verbose)

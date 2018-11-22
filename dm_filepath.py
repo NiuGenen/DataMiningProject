@@ -1,10 +1,14 @@
 import os
 import dm_source_data as sd
 
+# preprocessing 1
+
 pp1_train_data_name = "pp1_train_data_old.csv"
 pp1_test_data_name = "pp1_test_data_old.csv"
 pp1_train_data_path = os.path.join(sd.source_data_dir, pp1_train_data_name )
 pp1_test_data_path = os.path.join(sd.source_data_dir, pp1_test_data_name )
+
+# preprocessing 2
 
 pp2_direction_map_name = "pp2_direction_map.csv"
 pp2_linkid_map_name = "pp2_linkid_map.csv"
@@ -16,8 +20,12 @@ pp2_test_data_name = "pp2_test_data_new.csv"
 pp2_train_data_path = os.path.join(sd.source_data_dir, pp2_train_data_name )
 pp2_test_data_path = os.path.join(sd.source_data_dir, pp2_test_data_name )
 
+# statistic
+
 sta_unknown_percentage_name = "sta-linkid-unknown-percentage.csv"
 sta_unknown_percentage_path = os.path.join(sd.source_data_dir, sta_unknown_percentage_name)
+
+# preprocessing 3
 
 pp3_train_data_folder = os.path.join(sd.source_data_dir, "pp3_train_data_linkid" )
 if not os.path.exists( pp3_train_data_folder ):
@@ -29,3 +37,14 @@ if not os.path.exists( pp3_test_data_folder ):
 
 pp3_train_data_name = "pp3_train_data_all.csv"
 pp3_train_data_path = os.path.join(sd.source_data_dir, pp3_train_data_name )
+
+# preprocessing 4
+
+pp4_format_train_name = "pp4_format_train_data_all.csv"
+pp4_format_train_path = os.path.join(sd.source_data_dir, pp4_format_train_name)
+
+pp4_format_test_name = "pp4_format_test_data_all.csv"
+pp4_format_test_path = os.path.join(sd.source_data_dir, pp4_format_test_name)
+
+pp4_format_test_without_label_name = "pp4_format_test_data_without_label_all.csv"
+pp4_format_test_without_label_path = os.path.join(sd.source_data_dir, pp4_format_test_without_label_name)
