@@ -29,7 +29,7 @@ clf = clf.fit(data.values, label.values)
 print("Training Finish...   " + str(time.clock()) )
 
 # saving the training module
-save_path = os.path.join(sd.source_data_dir, dmfp.training_module_name + ".default" + dmfp.training_module_suffix)
+save_path = os.path.join(sd.source_data_dir, dmfp.training_module_name + "." + dmfp.training_module_config + dmfp.training_module_suffix)
 clf_file = os.path.join( save_path )
 print("Dumping Result into" + clf_file )
 fd = open( clf_file, "wb")

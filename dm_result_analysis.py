@@ -6,8 +6,6 @@ import os
 import dm_filepath as dmfp
 import dm_common as dmc
 
-dmc.check_file_and_pause( dmfp.pp4_format_test_path )
-
 verbose = 1
 
 res_col = [
@@ -24,18 +22,26 @@ res_col = [
     'elem_right_without_knonown_percentage'
 ]
 
+label_files = os.listdir( dmfp.result_real_label_floder_path )
+
 res_files = os.listdir( dmfp.prediction_result_floder_path)
 res_files = sorted(res_files)
 res_all = []
 for file in res_files:
-    print("Result File : " + file )
+    start_time = int( file.split('.')[2] )
 
     res_path = os.path.join( dmfp.prediction_result_floder_path, file)
-
+    print("Result File : " + res_path )
     rescsv = pd.read_csv(res_path , sep=',')
-    labelcsv = pd.read_csv( dmfp.pp4_format_test_path , sep=',')
 
-    start_time = int( file.split('.')[2] )
+    label_file = ""
+    for f in label_files:
+        if f.__contains__("." + str(start_time) + "."):
+            label_file = f
+            break
+    label_path = os.path.join( dmfp.result_real_label_floder_path, label_file)
+    print("Label File : " + label_path)
+    labelcsv = pd.read_csv( label_path, sep=',')
 
     item_nr = 0
     elem_nr = 0
@@ -49,21 +55,12 @@ for file in res_files:
     res_item = []
 
     i = 0
-    l = 0
     while i < rescsv.values.__len__():
-        label = None
-        while l < labelcsv.values.__len__():
-            label = labelcsv.values[l]
-            if abs( label[1] - start_time) > 2:
-                l += 1
-                continue
-            else:
-                l += 1
-                break
-
-        res   = rescsv.values[i]
+        label = labelcsv.values[i]
         label_len = label.__len__()
         label = label[ label_len - 6 : label_len ]
+
+        res   = rescsv.values[i]
 
         item_nr += 1
         elem_nr += res.__len__()

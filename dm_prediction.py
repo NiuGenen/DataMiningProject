@@ -34,7 +34,7 @@ for file in files:
             module_path = new_module_path
 
 if flag_found_one == 0:
-    dmc.pause_msg("Cannot file module file")
+    dmc.pause_msg("Cannot find module file")
 else:
     print("Find Module : " + module_path)
 
