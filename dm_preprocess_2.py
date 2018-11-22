@@ -10,7 +10,7 @@ dmc.check_file_and_pause( dmfp.pp1_train_data_path )
 dmc.check_file_and_pause( dmfp.pp1_test_data_path )
 
 train_col_name=[
-    'data',             # 0
+    'day',             # 0
     'time',             # 1
     'direction',        # 2
     'linkid',           # 3

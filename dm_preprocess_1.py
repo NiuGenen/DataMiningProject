@@ -6,7 +6,7 @@ import os
 import dm_filepath as dmfp
 
 txt_col_name=[
-    'data',             # 0
+    'day',             # 0
     'time',             # 1
     'direction',        # 2
     'road_type',        # 3
@@ -20,7 +20,7 @@ txt_col_name=[
 ]
 
 train_col_name=[
-    'data',             # 0 - 0
+    'day',             # 0 - 0
     'time',             # 1 - 1
     'direction',        # 2 - 2
     'linkid',           # 3 - 4
