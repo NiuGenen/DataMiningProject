@@ -1,0 +1,6 @@
+.*
+*.csv
+__pycache__
+*.module
+*.txt
+*.res
