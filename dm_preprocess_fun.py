@@ -120,9 +120,9 @@ def pp4_clear_format_data(data, check_func, para):
 
 def pp4_format_col_name( origin_col_name, data_cols, data_nr, label_col, label_nr):
     col_name = []
-    for i in range(0, data_nr + 1):
+    for i in range(0, data_nr):
         for col in data_cols:
             col_name.append( origin_col_name[col] + str(i) )
-    for i in range(data_nr + 1, data_nr + 1 + label_nr + 1):
+    for i in range(data_nr, data_nr + label_nr):
         col_name.append( origin_col_name[label_col] + str(i))
     return col_name
