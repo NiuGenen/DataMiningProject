@@ -70,3 +70,59 @@ def pp3_process_linkid_unknown(linkid_data):
         if linkid_data[i].__getitem__(8) == -1:
             pp3_cpy_list( linkid_data[i-1], linkid_data[i], [4,5,6,7,8])
         i += 1
+
+def pp4_format(csv, data_cols, data_nr, label_col, label_nr):
+    format_data     = []
+    format_item_in  = []
+    format_item_out = []
+    format_item     = []
+    csv_values = csv.values
+    csv_len    = csv.values.__len__()
+    data_i_s  = 0
+    data_i_e  = data_nr - 1
+    label_i_s = data_i_e  + 1
+    label_i_e = label_i_s + label_nr - 1
+    while label_i_e < csv_len:
+        # get the input data
+        for i in range(data_i_s, data_i_e + 1):
+            item = csv_values[i]
+            for data_col in data_cols:
+                format_item_in.append( item[data_col] )
+        # get the output(label) data
+        for i in range(label_i_s, label_i_e + 1):
+            item = csv_values[i]
+            format_item_out.append( item[label_col] )
+        # construct input and output into one item
+        for item_in in format_item_in:
+            format_item.append( item_in )
+        for item_out in format_item_out:
+            format_item.append( item_out )
+        # append format item in data
+        format_data.append( format_item )
+        # clear temp store
+        format_item_in.clear()
+        format_item_out.clear()
+        format_item = []
+        # update index
+        data_i_s  += 1
+        data_i_e  += 1
+        label_i_s += 1
+        label_i_e += 1
+    return format_data
+
+def pp4_clear_format_data(data, check_func, para):
+    new_data = []
+    for item in data:
+        if check_func(item, para):
+            continue
+        new_data.append( item )
+    return new_data
+
+def pp4_format_col_name( origin_col_name, data_cols, data_nr, label_col, label_nr):
+    col_name = []
+    for i in range(0, data_nr + 1):
+        for col in data_cols:
+            col_name.append( origin_col_name[col] + str(i) )
+    for i in range(data_nr + 1, data_nr + 1 + label_nr + 1):
+        col_name.append( origin_col_name[label_col] + str(i))
+    return col_name

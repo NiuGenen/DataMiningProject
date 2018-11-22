@@ -35,8 +35,9 @@
 
 ### step four
 
-- Combine clean data into one csv
-- Convert into training format
+- Format each linkid's data as \[ data1, data2, label1, label2 \]
+- Store the formated data for each linkid
+- Combine formated data into one csv
 
 ---
 
