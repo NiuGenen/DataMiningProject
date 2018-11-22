@@ -6,8 +6,7 @@ import os
 import dm_filepath as dmfp
 import dm_common as dmc
 import pickle
-import time
-from sklearn import tree
+import dm_prediction_func as funs
 
 dmc.check_file_and_pause( dmfp.pp4_format_test_without_label_path )
 
@@ -47,11 +46,31 @@ fd.close()
 
 # read prediction data
 testcsv = pd.read_csv( dmfp.pp4_format_test_without_label_path, sep=',' )
-pred_label = clf.predict( testcsv.values )
-col_nr = pred_label.shape[1]
-col_name = []
-for i in range(0,col_nr):
-    col_name.append("predict" + str(i) )
 
-res_path = os.path.join(sd.source_data_dir, module_name + ".res")
-dmcsv.write_list2_into_csv( pred_label, col_name, res_path, verbose)
+all_start_times = funs.time_enumrate()
+
+
+for start_time in all_start_times:
+    print("Start Time " + str(start_time) )
+
+    res_name = module_name[0:module_name.__len__()-".module".__len__()] + "." + str(start_time) + ".res"
+    res_path = os.path.join(dmfp.prediction_result_floder_path, res_name )
+    if os.path.exists( res_path ):
+        continue
+
+    test_data = []
+    for item in testcsv.values:
+        if abs( item[1] - start_time) < 2:
+            test_data.append( item )
+    if test_data.__len__() == 0:
+        print("No Data when start_time is " + str(start_time) )
+        continue
+
+    pred_label = clf.predict( test_data )
+    col_nr = pred_label.shape[1]
+
+    col_name = []
+    for i in range(0,col_nr):
+        col_name.append("predict" + str(i) )
+
+    dmcsv.write_list2_into_csv( pred_label, col_name, res_path, verbose)

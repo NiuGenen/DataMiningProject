@@ -53,3 +53,15 @@ pp4_format_test_without_label_path = os.path.join(sd.source_data_dir, pp4_format
 
 training_module_name = "DecisionTree"
 training_module_suffix = ".module"
+
+# prediction
+
+prediction_result_floder_name = training_module_name + "Result"
+prediction_result_floder_path = os.path.join(sd.source_data_dir, prediction_result_floder_name)
+if not os.path.exists( prediction_result_floder_path ):
+    os.mkdir( prediction_result_floder_path )
+
+# result analysis
+
+result_analysis_name = training_module_name + "ResultAnalysis.csv"
+result_analysis_path = os.path.join(sd.source_data_dir, result_analysis_name)
