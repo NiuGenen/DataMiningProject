@@ -48,3 +48,8 @@ pp4_format_test_path = os.path.join(sd.source_data_dir, pp4_format_test_name)
 
 pp4_format_test_without_label_name = "pp4_format_test_data_without_label_all.csv"
 pp4_format_test_without_label_path = os.path.join(sd.source_data_dir, pp4_format_test_without_label_name)
+
+# training
+
+training_module_name = "DecisionTree"
+training_module_suffix = ".module"
