@@ -21,7 +21,9 @@ label = traincsv.iloc[0:item_nr, 48:54]
 
 # using decision tree
 print("Using Decision Tree Module")
-clf = tree.DecisionTreeClassifier()
+#clf = tree.DecisionTreeClassifier()
+clf = tree.DecisionTreeClassifier(criterion="entropy")
+#clf = tree.DecisionTreeClassifier(min_samples_split=10)
 
 # training
 print("Training Start...   " + str(time.clock()) )

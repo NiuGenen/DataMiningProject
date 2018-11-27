@@ -28,6 +28,8 @@ res_files = os.listdir( dmfp.prediction_result_floder_path)
 res_files = sorted(res_files)
 res_all = []
 for file in res_files:
+    if file[0] == '.':
+        continue
     start_time = int( file.split('.')[2] )
 
     res_path = os.path.join( dmfp.prediction_result_floder_path, file)
@@ -42,6 +44,11 @@ for file in res_files:
     label_path = os.path.join( dmfp.result_real_label_floder_path, label_file)
     print("Label File : " + label_path)
     labelcsv = pd.read_csv( label_path, sep=',')
+    # [3] is linkid_tag
+    label_data = dict()
+    for item in labelcsv.values:
+        item_label = item[ item.__len__() - 6 : item.__len__() ]
+        label_data[ item[3] ] = item_label
 
     item_nr = 0
     elem_nr = 0
@@ -56,27 +63,24 @@ for file in res_files:
 
     i = 0
     while i < rescsv.values.__len__():
-        label = labelcsv.values[i]
-        label_len = label.__len__()
-        label = label[ label_len - 6 : label_len ]
-
         res   = rescsv.values[i]
+        label = label_data[ res[1] ]
 
         item_nr += 1
-        elem_nr += res.__len__()
+        elem_nr += res.__len__() - 2
 
         flag_item = 1
         flag_item_without_unknown = 1
 
-        k = 0
+        k = 2
         while k < res.__len__():
             # considering unknown
-            if res[k] == label[k]:
+            if res[k] == label[k - 2]:
                 elem_right += 1
             else:
                 flag_item = 0
             # ignoring unknown
-            if res[k] == label[k] or label[k] == -1:
+            if res[k] == label[k - 2] or label[k - 2] == -1:
                 elem_right_without_unknown += 1
             else:
                 flag_item_without_unknown = 0

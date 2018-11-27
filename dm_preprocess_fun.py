@@ -46,6 +46,12 @@ def pp2_read_dict_csv(csv):
         dct[ item[0]] = item[1]
     return dct
 
+def pp2_read_tcid_csv(csv):
+    tcd = dict()
+    for item in csv.values:
+        tcd [ item[1]] = item[0]
+    return tcd
+
 def pp2_generating_dict(key, value, n):
     i = 0
     d = dict()

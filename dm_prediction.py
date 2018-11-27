@@ -9,6 +9,10 @@ import pickle
 import dm_prediction_func as funs
 
 dmc.check_file_and_pause( dmfp.pp4_format_test_without_label_path )
+dmc.check_file_and_pause( dmfp.pp2_linkid_map_path )
+
+linkid_map_csv = pd.read_csv( dmfp.pp2_linkid_map_path, sep=',')
+linkid_tcid = ppf.pp2_read_tcid_csv( linkid_map_csv )
 
 verbose = 1
 
@@ -59,9 +63,13 @@ for start_time in all_start_times:
         continue
 
     test_data = []
+    test_data_linkid = []
+    test_data_linkid_tag = []
     for item in testcsv.values:
         if abs( item[1] - start_time) < 2:
             test_data.append( item )
+            test_data_linkid.append( linkid_tcid[item[3]] )
+            test_data_linkid_tag.append( item[3] )
     if test_data.__len__() == 0:
         print("No Data when start_time is " + str(start_time) )
         continue
@@ -70,7 +78,21 @@ for start_time in all_start_times:
     col_nr = pred_label.shape[1]
 
     col_name = []
+    col_name.append("linkid")
+    col_name.append("linkid_tag")
     for i in range(0,col_nr):
         col_name.append("predict" + str(i) )
 
-    dmcsv.write_list2_into_csv( pred_label, col_name, res_path, verbose)
+    csv_data = []
+    i = 0
+    while i < test_data_linkid.__len__():
+        csv_item = []
+        csv_item.append( test_data_linkid[i] )
+        csv_item.append( test_data_linkid_tag[i] )
+        for elem in pred_label[i]:
+            csv_item.append( elem )
+        csv_data.append( csv_item )
+        i += 1
+
+    #dmcsv.write_list2_into_csv( pred_label, col_name, res_path, verbose)
+    dmcsv.write_list2_into_csv( csv_data, col_name, res_path, verbose)
