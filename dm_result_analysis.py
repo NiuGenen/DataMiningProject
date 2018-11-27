@@ -59,9 +59,21 @@ for file in res_files:
     item_right_without_unknown = 0
     elem_right_without_unknown = 0
 
+    # sensitivity & precision
+    # sp[i][j] is the number of real-label-and-its-prediction pairs
+    # in which real label is i and prediction is j
+    sp = []
+    for i in range(0,4):
+        spi = []
+        for j in range(0,4):
+            spi.append(0)
+            res_col.append("sp" + str(i) + str(j))
+        sp.append( spi )
+
     res_item = []
 
     i = 0
+    # for each linkid
     while i < rescsv.values.__len__():
         res   = rescsv.values[i]
         label = label_data[ res[1] ]
@@ -84,6 +96,9 @@ for file in res_files:
                 elem_right_without_unknown += 1
             else:
                 flag_item_without_unknown = 0
+            # calculate sp
+            sp[int(label[k-2])][int(res[k])] += 1
+            # next label of this linkid
             k += 1
         item_right += flag_item
         item_right_without_unknown += flag_item_without_unknown
@@ -103,6 +118,10 @@ for file in res_files:
     res_item.append( item_right_without_unknown / item_nr )
     res_item.append( elem_right_without_unknown )
     res_item.append( elem_right_without_unknown / elem_nr )
+
+    for i in range(0,4):
+        for j in range(0,4):
+            res_item.append( sp[i][j] )
 
     print( res_item )
 

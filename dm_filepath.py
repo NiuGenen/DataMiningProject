@@ -52,8 +52,8 @@ pp4_format_test_without_label_path = os.path.join(sd.source_data_dir, pp4_format
 # training
 
 training_module_name = "DecisionTree"
-#training_module_config = "default"
-training_module_config = "entropy"
+training_module_config = "default"
+#training_module_config = "entropy"
 #training_module_config = "minsplitsample10"
 training_module_suffix = ".module"
 
