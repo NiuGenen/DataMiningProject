@@ -8,6 +8,7 @@ import dm_common as dmc
 import pickle
 import time
 from sklearn import tree
+from sklearn.model_selection import cross_val_score
 
 dmc.check_file_and_pause( dmfp.pp4_format_train_path )
 
@@ -22,8 +23,12 @@ label = traincsv.iloc[0:item_nr, 48:54]
 # using decision tree
 print("Using Decision Tree Module")
 #clf = tree.DecisionTreeClassifier()
-clf = tree.DecisionTreeClassifier(criterion="entropy")
+#clf = tree.DecisionTreeClassifier(criterion="entropy")
 #clf = tree.DecisionTreeClassifier(min_samples_split=10)
+#clf = tree.DecisionTreeClassifier(min_samples_split=20)
+#clf = tree.DecisionTreeClassifier(max_depth=30)
+#clf = tree.DecisionTreeClassifier(min_samples_split=20, max_depth=30)
+clf = tree.DecisionTreeClassifier(min_samples_leaf=10)
 
 # training
 print("Training Start...   " + str(time.clock()) )
