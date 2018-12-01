@@ -58,8 +58,15 @@ training_module_name = "DecisionTree"
 #training_module_config = "minsplitsample20"
 #training_module_config = "maxdepth30"
 #training_module_config = "minsplitsample20maxdepth30"
-training_module_config = "minsamplesleaf10"
+#training_module_config = "minsamplesleaf10"
+#training_module_config = "best1"
+training_module_config = "best1split"
 training_module_suffix = ".module"
+
+training_modules_floder_name = training_module_name + training_module_config + "Modules"
+training_modules_floder_path = os.path.join(sd.source_data_dir, training_modules_floder_name)
+if not os.path.exists( training_modules_floder_path ):
+    os.mkdir( training_modules_floder_path )
 
 # prediction
 
