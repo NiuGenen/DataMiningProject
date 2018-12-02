@@ -1,4 +1,5 @@
 import functools
+import pandas as pd
 
 def cvt_targ( targ ):
     if targ == "UNKNOWN_CONGESTION_LEVEL":
@@ -30,6 +31,38 @@ def process_source_file(csv, train_data, filename, data_cols, label_col, verbose
     if verbose >= 2:
         print( train_data )
     return train_data
+
+def pp_correlation_analysis_categorical( list2, col1id, col1name, col2id, col2name):
+    col1 = []
+    col2 = []
+    col1_dict = dict()
+    col2_dict = dict()
+    col1_cnt = 0
+    col2_cnt = 0
+    for item in list2:
+        if not col1_dict.__contains__( item[col1id] ):
+            col1_dict[ item[col1id] ] = col1_cnt
+            col1_cnt += 1
+        if not col2_dict.__contains__( item[col2id] ):
+            col2_dict[ item[col2id] ] = col2_cnt
+            col2_cnt += 1
+        col1.append( col1_dict[item[col1id]] )
+        col2.append( col2_dict[item[col2id]] )
+    pds1 = pd.Series(data=col1, name=col1name)
+    pds2 = pd.Series(data=col2, name=col2name)
+    df = pd.concat([pds1, pds2], axis=1)
+    return df.corr()
+
+def pp_correlation_analysis( list2, col1id, col1name, col2id ,col2name, col1v, col2v):
+    col1 = []
+    col2 = []
+    for item in list2:
+        col1.append( item[col1id] )
+        col2.append( item[col2id] )
+    pds1 = pd.Series(data=col1, name=col1name)
+    pds2 = pd.Series(data=col2, name=col2name)
+    df = pd.concat([pds1, pds2], axis=1)
+    return df.corr()
 
 def pp2_taging(csv, colname, value, tag):
     i = 0
