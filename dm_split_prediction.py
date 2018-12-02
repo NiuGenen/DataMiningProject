@@ -33,6 +33,8 @@ testcsv = pd.read_csv( dmfp.pp4_format_test_without_label_path, sep=',' )
 
 all_start_times = funs.time_enumrate()
 
+if_train_with_predict_result = 1
+
 for start_time in all_start_times:
     print("Start Time " + str(start_time) )
 
@@ -46,7 +48,10 @@ for start_time in all_start_times:
     test_data_linkid_tag = []
     for item in testcsv.values:
         if abs( item[1] - start_time) < 2:
-            test_data.append( item )
+            list_item = []
+            for i in range(0,item.__len__()):
+                list_item.append( item[i])
+            test_data.append( list_item )
             test_data_linkid.append( linkid_tcid[item[3]] )
             test_data_linkid_tag.append( item[3] )
     if test_data.__len__() == 0:
@@ -58,7 +63,11 @@ for start_time in all_start_times:
     pred_label = []
     pred_label_cols = [None, None, None, None, None, None]
     for idx in range(0,6):
-        pred_label_cols[idx] = clfs[idx].predict( test_data )
+        res = clfs[idx].predict(test_data)
+        pred_label_cols[idx] = res
+        if if_train_with_predict_result is 1:
+            for j in range(0,test_data.__len__()):
+                test_data.__getitem__(j).append( res[j] )
     for idx in range(0,pred_label_cols[0].__len__()):
         item = []
         for j in range(0,6):

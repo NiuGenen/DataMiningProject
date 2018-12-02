@@ -17,10 +17,10 @@ traincsv = pd.read_csv( dmfp.pp4_format_train_path, sep=',' )
 
 print("Extract data and label")
 item_nr = traincsv.values.__len__()
-data  = traincsv.iloc[0:item_nr, 0:48]
 
 # training
 for i in range(0,6):
+    data  = traincsv.iloc[0:item_nr, 0:48 + i]
     label = traincsv.iloc[0:item_nr, 48 + i]
     # using decision tree
     print("Using Decision Tree Module with specific parameter")
