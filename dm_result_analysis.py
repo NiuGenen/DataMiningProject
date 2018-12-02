@@ -27,6 +27,7 @@ label_files = os.listdir( dmfp.result_real_label_floder_path )
 res_files = os.listdir( dmfp.prediction_result_floder_path)
 res_files = sorted(res_files)
 res_all = []
+sp = []
 for file in res_files:
     if file[0] == '.':
         continue
@@ -63,12 +64,18 @@ for file in res_files:
     # sp[i][j] is the number of real-label-and-its-prediction pairs
     # in which real label is i and prediction is j
     sp = []
+    spun = 0
     for i in range(0,4):
         spi = []
         for j in range(0,4):
             spi.append(0)
             res_col.append("sp" + str(i) + str(j))
         sp.append( spi )
+    res_col.append("spun")
+    for i in range(0,4):
+        res_col.append("s" + str(i) )
+    for i in range(0,4):
+        res_col.append("p" + str(i) )
 
     res_item = []
 
@@ -97,7 +104,10 @@ for file in res_files:
             else:
                 flag_item_without_unknown = 0
             # calculate sp
-            sp[int(label[k-2])][int(res[k])] += 1
+            if label[k-2] != -1:
+                sp[int(label[k-2])][int(res[k])] += 1
+            else:
+                spun += 1
             # next label of this linkid
             k += 1
         item_right += flag_item
@@ -122,6 +132,13 @@ for file in res_files:
     for i in range(0,4):
         for j in range(0,4):
             res_item.append( sp[i][j] )
+
+    res_item.append( spun )
+
+    for i in range(0,4):
+        res_item.append(sp[i][i] / (sp[i][0] + sp[i][1] + sp[i][2] + sp[i][3]) )
+    for i in range(0,4):
+        res_item.append(sp[i][i] / (sp[0][i] + sp[1][i] + sp[2][i] + sp[3][i]) )
 
     print( res_item )
 
