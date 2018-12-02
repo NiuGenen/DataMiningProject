@@ -29,6 +29,17 @@ label = traincsv.iloc[0:item_nr, 48:54]
 #clf = tree.DecisionTreeClassifier(min_samples_leaf=10)
 
 # cross validation
+
+print("--- min samples split = 50; max depth = 20; min samples lead = 25 ---")
+test_score = cross_val_score(tree.DecisionTreeClassifier(min_samples_split=50, max_depth=20, min_samples_leaf=25), data.values, label.values[0:item_nr,0], cv=4)
+print(test_score)
+
+print("--- min samples split = 100; max depth = 20; min samples lead = 50 ---")
+test_score = cross_val_score(tree.DecisionTreeClassifier(min_samples_split=100, max_depth=20, min_samples_leaf=50), data.values, label.values[0:item_nr,0], cv=4)
+print(test_score)
+
+dmc.pause_msg("END..")
+
 print("--- criterion = gini ---")
 for i in range(0,6):
     test_score = cross_val_score(tree.DecisionTreeClassifier(criterion="gini"), data.values, label.values[0:item_nr,i], cv=4)
