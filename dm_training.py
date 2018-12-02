@@ -29,7 +29,8 @@ print("Using Decision Tree Module")
 #clf = tree.DecisionTreeClassifier(max_depth=30)
 #clf = tree.DecisionTreeClassifier(min_samples_split=20, max_depth=30)
 #clf = tree.DecisionTreeClassifier(min_samples_leaf=10)
-clf = tree.DecisionTreeClassifier(min_samples_split=50, max_depth=20, min_samples_leaf=30)
+#clf = tree.DecisionTreeClassifier(min_samples_split=100, max_depth=20, min_samples_leaf=50)
+clf = tree.DecisionTreeClassifier(min_samples_split=50, max_depth=20, min_samples_leaf=25)
 
 # training
 print("Training Start...   " + str(time.clock()) )
