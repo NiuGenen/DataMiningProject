@@ -62,8 +62,8 @@ training_module_name = "DecisionTree"
 #training_module_config = "best1"
 #training_module_config = "best1split"
 #training_module_config = "best1splitANDtrainwithpredictresult"
-training_module_config = "best2"
-#raining_module_config = "best3"
+#training_module_config = "best2"
+training_module_config = "best3"
 training_module_suffix = ".module"
 
 training_modules_floder_name = training_module_name + training_module_config + "Modules"
@@ -87,3 +87,10 @@ if not os.path.exists( result_real_label_floder_path ):
 
 result_analysis_name = training_module_name + training_module_config + "ResultAnalysis.csv"
 result_analysis_path = os.path.join(sd.source_data_dir, result_analysis_name)
+
+# final result format
+
+final_result_floder_name = training_module_name + training_module_config + "FinalResult"
+final_result_floder_path = os.path.join(sd.source_data_dir, final_result_floder_name)
+if not os.path.exists( final_result_floder_path ):
+    os.mkdir( final_result_floder_path )
