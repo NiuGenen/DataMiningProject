@@ -36,7 +36,7 @@
 
 ### step four
 
-- Format each linkid's data as \[ data1, data2, label1, label2 \]
+- Format each linkid's data as \[data1, ..., data6, label7, ... label12 \]
 - Store the formated data for each linkid
 - Combine formated data into one csv
 
@@ -45,6 +45,7 @@
 # Train
 
 - DecisionTree
+    - We used Decision Tree only
 - Neural Network
 
 ---
@@ -53,6 +54,7 @@
 
 - Select half an hour's data as input data
 - Preprocessing input data
+    - transformation : to the required format \[data1, ..., data6, label7, ... label12 \]
 - predicting
 
 ---
