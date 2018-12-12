@@ -94,3 +94,11 @@ final_result_floder_name = training_module_name + training_module_config + "Fina
 final_result_floder_path = os.path.join(sd.source_data_dir, final_result_floder_name)
 if not os.path.exists( final_result_floder_path ):
     os.mkdir( final_result_floder_path )
+
+# all in one file
+all_in_one_file_name_old="half_hour_data_old.csv"
+all_in_one_file_path_old=os.path.join(sd.source_data_dir, all_in_one_file_name_old)
+all_in_one_file_name_new="half_hour_data_new.csv"
+all_in_one_file_path_new=os.path.join(sd.source_data_dir, all_in_one_file_name_new)
+all_in_one_file_name_format="half_hour_data_format.csv"
+all_in_one_file_path_format=os.path.join(sd.source_data_dir, all_in_one_file_name_format)
